@@ -11,9 +11,52 @@
 <body>
 
     <h1>TodoList</h1>
+    <!-- <button id='displayTodosButton' ;>Display Todo</button>
+    <button id='toggleAllButton'>Toggle All</button> -->
+    <div>
+
+
+        <button onclick="handlers.toggleAll()">Toggle All</button>
+
+    </div>
+    <div>
+
+        <button onclick="handlers.addTodo()">Add Todo</button>
+        <input id='addTodoTextInput' type="text">
+
+    </div>
+
+    <div>
+        <button onclick="handlers.changeTodo()">Change Todo</button>
+        <input id='changeTodoTextValue' type='number'>
+        <input id='changeTodoTextInput' type='text'>
+
+    </div>
+    <div>
+        <button onclick="handlers.deleteTodo()">Delete</button>
+        <input id='deleteTodoText' type='number'>
+
+    </div>
+    <div>
+        <button onclick="handlers.toggleCompleted()">Toggle</button>
+        <input id='toggleTodo' type='number'>
+
+    </div>
+
+    <div>
+        <ul>
+
+        </ul>
+
+    </div>
+
+
+
+
+
+
 
     <script src="new.js">
-
 
     </script>
 </body>
