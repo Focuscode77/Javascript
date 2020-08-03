@@ -325,25 +325,51 @@ var todoList = {
         var totalTodos = this.drinks.length;
         var completedTodos = 0;
         //   get number of completed todos loop
-        for (var i = 0; i < totalTodos; i++) {
-            if (this.drinks[i].completed === true) {
+        // for (var i = 0; i < totalTodos; i++) {
+        //     if (this.drinks[i].completed === true) {
+        //         completedTodos++;
+
+        //     }
+        // }
+        this.drinks.forEach(function (drinks) {
+            if (drinks.completed === true) {
                 completedTodos++;
-
             }
-        }
+        })
         //        // case one
-        if (completedTodos === totalTodos) {
-            //            // Make everything false
-            for (var i = 0; i < totalTodos; i++) {
+        // if (completedTodos === totalTodos) {
+        //     //            // Make everything false
+        //     // for (var i = 0; i < totalTodos; i++) {
 
-                this.drinks[i].completed = false;
+        //     //     this.drinks[i].completed = false;
+        //     // }
+        //     this.drinks.forEach(function(todo){
+        //        dirnks.completed = false;
+
+        //     })
+
+        // } else {
+        //     // for (var i = 0; i < totalTodos; i++) {
+        //     //     this.drinks[i].completed = true;
+        //     // }
+        //     this.drinks.forEach(function(todo){
+        //         dirnks.completed = true;
+
+        //      })
+        this.drinks.forEach(function (drinks) {
+
+            if (completedTodos === totalTodos) {
+                drinks.completed = false;
+
+
+            } else {
+
+                drinks.completed = true;
+
+
             }
 
-        } else {
-            for (var i = 0; i < totalTodos; i++) {
-                this.drinks[i].completed = true;
-            }
-        }
+        })
 
     }
 
@@ -410,11 +436,11 @@ var handlers = {
 
     },
 
-    deleteTodo: function () {
-        var deleteTodoText = document.getElementById('deleteTodoText');
+    deleteTodo: function (position) {
+        // var deleteTodoText = document.getElementById('deleteTodoText');
 
-        todoList.deleteTodo(deleteTodoText.valueAsNumber);
-        deleteTodoText.value = '';
+        todoList.deleteTodo(position);
+        // deleteTodoText.value = '';
 
         view.displayTodos();
 
@@ -441,30 +467,61 @@ var view = {
     displayTodos: function () {
         var todoUl = document.querySelector('ul');
         todoUl.innerHTML = '';
-        for (var i = 0; i < todoList.drinks.length; i++) {
 
-            // Adding content on the screen
+        todoList.drinks.forEach(function (drinks, position) {
+
             var todoLi = document.createElement('li');
 
-            var todo = todoList.drinks[i];
+
             var todoTextWithCompletion = '';
-            if (todo.completed === true) {
-                todoTextWithCompletion = '(x)' + todo.todoText;
+            if (drinks.completed === true) {
+                todoTextWithCompletion = '(x)' + drinks.todoText;
 
 
             } else {
-                todoTextWithCompletion = '()' + todo.todoText;
+                todoTextWithCompletion = '()' + drinks.todoText;
 
             }
-
+            todoLi.id = position;
             todoLi.textContent = todoTextWithCompletion;
+            todoLi.appendChild(this.createDeleteButton());
             todoUl.appendChild(todoLi);
 
 
-        }
+
+        }, this)
+
+        var todosUl = document.querySelector('ul');
+
+        todoUl.addEventListener('click', function (event) {
+            console.log(event.target.parentNode.id);
+            //Get the element that was clicked;
+            var elementsClicked = event.target;
+
+            //checked if elementClicked
+            if (elementsClicked.className === 'deleteButton') {
+                //Run handler
+                handlers.deleteTodo(parseInt(elementsClicked.parentNode.id));
+
+
+            }
+
+
+        });
+
+    },
+
+    createDeleteButton: function () {
+        var deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Delete';
+        deleteButton.className = 'deleteButton';
+
+        return deleteButton;
+
+
+
 
     }
-
 
 
 }
@@ -478,4 +535,28 @@ console.log(view.displayTodos());
 
 
 
+var students = ['josh', 'adam', 'alex', 'peter'];
 
+
+var logNames = function (name) {
+
+    console.log(name);
+
+}
+
+
+students.forEach(logNames);
+
+
+
+var math = multiplyNumbers(2, 5);
+
+function multiplyNumbers(a, b) {
+
+    var results = a * b;
+
+    return results;
+
+}
+
+console.log(math);
